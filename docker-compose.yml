@@ -23,13 +23,13 @@ services:
       - redis
       - postgres
       - nginx
-  client:
+  frontend:
     build:
-      context: ./client
+      context: ./frontend
       dockerfile: Dockerfile.dev
     volumes:
       - /usr/src/app/node_modules
-      - ./client:/usr/src/app
+      - ./frontend:/usr/src/app
     depends_on:
       - redis
       - postgres

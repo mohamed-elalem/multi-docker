@@ -3,18 +3,18 @@ services:
   - docker
 
 before_install:
-  - docker build -t elalem/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t elalem/react-test -f ./frontend/Dockerfile.dev ./frontend
 
 script:
   - docker run elalem/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t elalem/multi-client ./client
+  - docker build -t elalem/multi-frontend ./frontend
   - docker build -t elalem/multi-nginx ./nginx
   - docker build -t elalem/server ./server
   - docker build -t elalem/worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push elalem/multi-client
+  - docker push elalem/multi-frontend
   - docker push elalem/nginx
   - docker push elalem/server
   - docker push elalem/worker
